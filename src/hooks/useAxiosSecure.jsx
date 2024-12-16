@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://job-portal-server-for-recruiter-part3.vercel.app',
     withCredentials: true
 });
 
@@ -17,18 +17,15 @@ const useAxiosSecure = () => {
         axiosInstance.interceptors.response.use(response => {
             return response;
         }, error => {
-            console.log('error caught in interceptor', error);
-
+            console.log('api response error status', error.status);
             if (error.status === 401 || error.status === 403) {
-                console.log('need to logout the user');
                 signOutUser()
                     .then(() => {
-                        console.log('logged out user');
-                        navigate('/signIn');
+                        // redirect to the login page
+                        navigate('/signIn')
                     })
-                    .catch(error => console.log(error));
+                    .catch(err => console.log(err))
             }
-
             return Promise.reject(error);
         })
     }, [])
@@ -37,3 +34,13 @@ const useAxiosSecure = () => {
 };
 
 export default useAxiosSecure;
+
+
+
+/**
+ * axios: get, post, put/patch, delete --> easier
+ * interceptor: client ----------|---------------> server
+ * client <------------------|------------------Server
+ * in the interceptor for response == needs two function 
+ * 
+*/
