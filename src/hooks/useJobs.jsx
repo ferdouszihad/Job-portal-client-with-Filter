@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const useJobs = () => {
-    const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {}, []);
 
-    }, [])
-
-    return [jobs]
-
+  return [jobs];
 };
 
 export default useJobs;
